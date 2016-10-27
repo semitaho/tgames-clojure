@@ -6,7 +6,7 @@
             [config.core :refer [env]]))
 
 (def mount-target
-  [:div#app
+  [:div#container
       [:h3 "ClojureScript has not been finished!"]
       [:p "please run "
        [:b "lein figwheel"]
@@ -18,7 +18,7 @@
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1, maximum-scale=1"}]
    [:title "tGames"]       
-   (include-css (if (env :dev) "/css/materialize.css" "/css/materialize.min.css"))])
+   (include-css  (if (env :dev) "/css/materialize.css" "/css/materialize.min.css" ) "/css/main.css"  )])
 
 (def loading-page
   (html5
