@@ -1,12 +1,16 @@
 (ns tgames.sudoku.core
-  (:require [tgames.sudoku.board :refer [create-board] ])
+  (:require
+    [tgames.sudoku.board :refer [board]]
+    [tgames.sudoku.generator :refer [create-board] ]
+    )
 )
 
-(defn sudokuApp[] 
+(defn sudokuApp[]
   [:div {:class "container"}
-    [:div {:class "row"} 
+    [:h1 "Sudoku"]
+    [:div {:class "row"}
       [:div {:class "col-md-8 col-md-offset-2"}
-
+        [board (create-board) ]
       ]
 
     ]
