@@ -78,6 +78,10 @@
    (= (count board) 81)
 )
 
+(defn create-puzzle[board level]
+  (assoc board (rand-int (count board)) nil)
+)
+
 (defn create-board
     ([] (create-board []))
     ([board]

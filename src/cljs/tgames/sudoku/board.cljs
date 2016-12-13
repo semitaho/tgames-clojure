@@ -1,15 +1,39 @@
-(ns tgames.sudoku.board)
+(ns tgames.sudoku.board
+  (:require [tgames.sudoku.cell :refer [cell] ])
+)
 
+(def default-style " flex flex-1 box-cell flex-center ")
+
+
+(defn box-left[index]
+  (if (= 0 (mod index 9)) "box-left "  "" )
+)
+
+(defn box-right[index]
+  (if (= 0 (mod (inc index) 3 )) "box-right  " "" )
+)
+
+(defn box-top[index]
+  (if (< index 9) "box-top "  "" )
+)
+
+(defn box-bottom[index]
+  (if (or (>= index 72) (and (>= index 18) (<= index 26)) (and (>= index 45) (<= index 53))   ) "box-bottom "  "" )
+)
 
 (defn get-class[index]
-  "col l1"
+  (str default-style (box-left index) (box-top index) (box-right index) (box-bottom index)  )
 
 )
 
 (defn board[data]
-   [:div
-      (for [item data]
-       [:div {:class (get-class :key) } item]
+   [:div {:class "flex flex-9 flex-wrap full-height"}
+      (for [index (take 81 (range))]
+        (let [number (get data index)]
+          ^{:key index} [:div  {:class (get-class index) } [cell index number] ]
+        )
+
       )
+
    ]
 )

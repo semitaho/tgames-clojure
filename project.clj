@@ -65,7 +65,7 @@
               :optimizations :none
               :pretty-print  true}}
 
-
+  
 
             }
    }
@@ -82,7 +82,11 @@
 
 
 
-  :profiles {:dev {:repl-options {:init-ns tgames.repl}
+  :profiles {
+    :test {
+      :source-paths ["src/cljs" "test/tgames"]
+          }
+    :dev {:repl-options {:init-ns tgames.repl}
 
                    :dependencies [[ring/ring-mock "0.3.0"]
                                   [ring/ring-devel "1.5.0"]

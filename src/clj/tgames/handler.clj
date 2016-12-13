@@ -17,8 +17,8 @@
    [:meta {:charset "utf-8"}]
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1, maximum-scale=1"}]
-   [:title "tGames"]       
-   (include-css  (if (env :dev) "/css/materialize.css" "/css/materialize.min.css" ) "/css/main.css"  )])
+   [:title "tGames"]
+   (include-css  (if (env :dev) "/css/materialize.css" "/css/materialize.min.css" ) "/css/flex.css" "/css/main.css"  )])
 
 (def loading-page
   (html5
@@ -31,11 +31,13 @@
 )
 
 
+
+
 (defroutes routes
   (GET "/" [] loading-page)
   (GET "/about" [] loading-page)
   (GET "/sudoku" [] loading-page)
-  
+
   (resources "/")
   (not-found "Not Found"))
 
