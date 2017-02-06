@@ -13,7 +13,10 @@
                  [ring/ring-defaults "0.2.1"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
+                 [cljs-http "0.1.42"]
                  [yogthos/config "0.8"]
+                 [netpyoung/fb-sdk-cljs "0.1.2"]
+
                  [org.clojure/clojurescript "1.9.92"
                   :scope "provided"]
                  [secretary "1.2.3"]
@@ -65,7 +68,7 @@
               :optimizations :none
               :pretty-print  true}}
 
-  
+
 
             }
    }

@@ -2,7 +2,7 @@
   (:require [tgames.sudoku.cell :refer [cell] ])
 )
 
-(def default-style " flex flex-1 box-cell flex-center ")
+(def default-style " flex flex-1 box-cell justify-center ")
 
 
 (defn box-left[index]
@@ -26,11 +26,12 @@
 
 )
 
-(defn board[data]
+(defn board[puzzle data]
    [:div {:class "flex flex-9 flex-wrap full-height"}
       (for [index (take 81 (range))]
-        (let [number (get data index)]
-          ^{:key index} [:div  {:class (get-class index) } [cell index number] ]
+        (let [data (get puzzle index)]
+
+          ^{:key index} [:div  {:class (get-class index) } [cell index data] ]
         )
 
       )

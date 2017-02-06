@@ -6,7 +6,7 @@
             [config.core :refer [env]]))
 
 (def mount-target
-  [:div#container
+  [:div#container{:class "flex-col flex-full"}
       [:h3 "ClojureScript has not been finished!"]
       [:p "please run "
        [:b "lein figwheel"]
@@ -23,7 +23,7 @@
 (def loading-page
   (html5
     (head)
-    [:body {:class "body-container"}
+    [:body {:class "body-container flex"}
      mount-target
      (include-js "/js/jquery.min.js" "/js/materialize.js" "/js/app.js")
     ]

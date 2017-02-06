@@ -1,16 +1,28 @@
 (ns tgames.sudoku.state
   (:require
-      [tgames.sudoku.generator :as gen]
+      [tgames.sudoku.generator :refer [create-board create-puzzle]]
       [reagent.core :as r :refer [atom]]
   )
 )
 
-(def sudoku-state
+(defn- map-puzzle-num
+  [number]
+   (if (nil? number) {:number nil :readonly false} {:number number :readonly true})
+)
 
-  (r/atom {:board (gen/create-puzzle (gen/create-board) 2) }))
+(def sudoku-state
+  (r/atom
+    (let [board (create-board)]
+    {
+     :board board
+     :game-state "started"
+     :timer 0
+     :scores []
+     :puzzle (apply vector (map map-puzzle-num  (create-puzzle board 1) ))
+    })
+  ))
 
 (defn change-number[index n]
-  (.log js/console n)
-  (swap! sudoku-state update-in [:board] assoc index n)
+  (swap! sudoku-state update-in [:puzzle] assoc index {:number n :readonly false} )
 
 )

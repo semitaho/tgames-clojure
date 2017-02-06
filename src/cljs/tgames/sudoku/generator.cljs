@@ -56,8 +56,8 @@
 (def alueet (map #(into () %) (area-calc area-indices)))
 
 
-(defn calculate-available-sudoku-numbers[board]
-    (let [index (count board) sudoku-numbers-set (into #{} sudoku-numbers) ]
+(defn calculate-available-sudoku-numbers[board index]
+    (let [sudoku-numbers-set (into #{} sudoku-numbers) ]
        (into [] (difference sudoku-numbers-set (into #{} (union (index->value board (take-area rows index))
               (index->value board (take-area cols index))
               (index->value board (take-area alueet index))
@@ -69,7 +69,7 @@
 )
 
 (defn rand-new-sudoku-number[board]
-    (let [available-numbers ( calculate-available-sudoku-numbers board)]
+    (let [available-numbers ( calculate-available-sudoku-numbers board (count board))]
         (rand-new-number available-numbers)
     )
 )
@@ -78,14 +78,35 @@
    (= (count board) 81)
 )
 
+(defn- count-nil-numbers[board]
+  (reduce (fn[x y] (if (nil? y) (inc x) x )) 0 board)
+
+)
+(defn- remove-from-board-ind [board current]
+  (let [ind (-> board count  rand-int) ]
+
+    (if (get board ind)
+
+      (let [new-board (assoc board ind nil) available-numbers-count (-> new-board (calculate-available-sudoku-numbers ind) count)]
+        (if (= 1 available-numbers-count)
+          ind
+          (remove-from-board-ind board current)
+        )
+
+      )
+      (remove-from-board-ind board current)
+    )
+  )
+ )
+
 (defn create-puzzle[board level]
-  (assoc board (rand-int (count board)) nil)
+  (reduce (fn[x y] (assoc x (-> x (remove-from-board-ind (inc y) )) nil) ) board (range 0 level) )
 )
 
 (defn create-board
     ([] (create-board []))
     ([board]
-        (let [available-numbers (-> board calculate-available-sudoku-numbers shuffle)]
+        (let [available-numbers (-> board (calculate-available-sudoku-numbers (count board)) shuffle)]
             (loop [index 0]
                 (if (nil? (get available-numbers index))
                     nil
@@ -105,10 +126,6 @@
 )
 
 (defn print-board [board]
-    (doseq [index (range 0 81)]
-       (if (= (mod (inc index) 9) 0)
-        (println (get board index))
-        (print (get board index) " ")
-       )
-    )
+    (doseq [x board] (println  (type x) )  )
+
 )

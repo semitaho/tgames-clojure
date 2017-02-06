@@ -2,12 +2,24 @@
   display: flex;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-center {
   align-items: center;
   justify-content: center;
 }
 .justify-center {
   justify-content: center;
+}
+
+.space-around{
+  justify-content: space-around;
+}
+
+.align-stretch {
 
 }
 
@@ -25,7 +37,12 @@
 
 
 .flex-wrap {
+  -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
+}
+
+.flex-full {
+  flex: 1
 }
 
 .vh-height {
