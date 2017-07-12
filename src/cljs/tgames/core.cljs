@@ -8,6 +8,7 @@
 
 
 (defn current-page []
+  (println (str "jaa " (session/get :current-page)))
   [:div [(session/get :current-page)]])
 
 ;; -------------------------
@@ -18,8 +19,8 @@
 
 (defroute "/about" []
   (session/put! :current-page #'about-page))
-(defroute "/sudoku" []
-  (session/put! :current-page #'sudokuApp))  
+(defroute "/#/sudoku" []
+  (session/put! :current-page #'sudokuApp))
 
 ;; -------------------------
 ;; Initialize app

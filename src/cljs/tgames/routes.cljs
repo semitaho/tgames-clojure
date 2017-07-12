@@ -4,13 +4,13 @@
 ;; Views
 
 (defn home-page []
-  [:div [:h2 "Welcome to tgames"]
-   [:div
-     [:ul
-         [:li
-            [:a {:href "/sudoku"} "go to sudoku"]
-         ]
-     ] ]
+  [:div {:class "container flex-col flex-full flex-center "}
+    [:h2 "Welcome to tgames"]
+    [:div {:class "flex"}
+      [:div {:class "card flex"}
+        [:a {:class "card-action card-title flex align-center" :href "/#/sudoku" } "Sudoku"  ]
+      ]
+    ]
   ]
 )
 (defn about-page []
@@ -20,5 +20,4 @@
 (defn sudoku []
   (print "paska")
   [:div [:h2 "jes sudoku"] ]
-)   
-
+)

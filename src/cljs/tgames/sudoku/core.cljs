@@ -12,7 +12,12 @@
 )
 
 (defn sudoku-start-screen[]
-  [:button {:class "btn btn-large" :on-click start-game   } "Start new sudoku" ]
+  [:div {:class "flex-col flex-full justify-center"}
+    [:h1 {:class "flex justify-center"}  "Sudoku"]
+    [:div {:class "flex"}
+      [:button {:class "btn flex-full btn-large" :on-click start-game   } "Start new sudoku" ]
+    ]
+  ]
 )
 
 (defn sudoku-end-screen[time]
@@ -28,24 +33,27 @@
   (fb/load-sdk fb-initialized)
 
   (fn[]
-    [:div {:class "container flex-full flex-col flex-center "}
-      [:h1 "Sudoku"]
-        [:div {:class ""}
-            (let [game-state (:game-state @sudoku-state) ]
-              (cond
-                (= "started" game-state)
-                  [sudoku-start-screen]
+      [:div {:class "container flex-col flex-full"}
+          (let [game-state (:game-state @sudoku-state) ]
+            (cond
+              (= "started" game-state)
+                [sudoku-start-screen]
 
-                (= "playing" game-state)
-                  [:div
+              (= "playing" game-state)
+                [:div {:class "flex-col flex-full"}
+                  [:div {:class "flex justify-center"}
+                    [:h1 "Sudoku"]
+                  ]
+                  [:div {:class "flex-full flex-col"}
                     [board (:puzzle @sudoku-state) (:board @sudoku-state) ]
                     [sudoku-timer (:timer @sudoku-state) ]
                   ]
-                (= "ended" game-state)
-                  [sudoku-end-screen (:timer @sudoku-state) ]
-              )
+                ]
+              (= "ended" game-state)
+                [sudoku-end-screen (:timer @sudoku-state) ]
             )
-        ]
-    ]
+          )
+      ]
+
   )
 )

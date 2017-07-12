@@ -6,7 +6,7 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring-server "0.4.0"]
-                 [reagent "0.6.0-rc"]
+                 [reagent "0.6.0"]
                  [reagent-forms "0.5.24"]
                  [reagent-utils "0.1.9"]
                  [ring "1.5.0"]
@@ -16,7 +16,6 @@
                  [cljs-http "0.1.42"]
                  [yogthos/config "0.8"]
                  [netpyoung/fb-sdk-cljs "0.1.2"]
-
                  [org.clojure/clojurescript "1.9.92"
                   :scope "provided"]
                  [secretary "1.2.3"]
@@ -28,32 +27,24 @@
             [lein-asset-minifier "0.2.7"
              :exclusions [org.clojure/clojure]]]
 
-  :ring {:handler tgames.handler/app
-         :uberwar-name "tgames.war"}
-
   :min-lein-version "2.5.0"
-
-  :uberjar-name "tgames.jar"
-
-  :main tgames.server
 
   :clean-targets ^{:protect false}
   [:target-path
    [:cljsbuild :builds :app :compiler :output-dir]
    [:cljsbuild :builds :app :compiler :output-to]]
 
-  :source-paths ["src/clj" "src/cljc"]
-  :resource-paths ["resources" "target/cljsbuild"]
+  :resource-paths ["public"]
 
   :minify-assets
   {:assets
-    {"resources/public/css/materialize.min.css" "resources/public/css/materialize.css"}}
+    {"public/css/materialize.min.css" "public/css/materialize.css"}}
 
   :cljsbuild
   {:builds {:min
             {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
              :compiler
-             {:output-to "target/cljsbuild/public/js/app.js"
+             {:output-to "tpublic/js/app.js"
               :output-dir "target/uberjar"
               :optimizations :advanced
               :pretty-print  false}}
@@ -62,8 +53,8 @@
              :compiler
              {:main "tgames.dev"
               :asset-path "/js/out"
-              :output-to "target/cljsbuild/public/js/app.js"
-              :output-dir "target/cljsbuild/public/js/out"
+              :output-to "public/js/app.js"
+              :output-dir "public/js/out"
               :source-map true
               :optimizations :none
               :pretty-print  true}}
@@ -75,13 +66,12 @@
 
 
   :figwheel
-  {:http-server-root "public"
+  {:http-server-root "."
    :server-port 3449
    :nrepl-port 7002
    :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
                       ]
-   :css-dirs ["resources/public/css"]
-   :ring-handler tgames.handler/app}
+   :css-dirs ["public/css"]}
 
 
 
@@ -91,8 +81,7 @@
           }
     :dev {:repl-options {:init-ns tgames.repl}
 
-                   :dependencies [[ring/ring-mock "0.3.0"]
-                                  [ring/ring-devel "1.5.0"]
+                   :dependencies [
                                   [prone "1.1.1"]
                                   [figwheel-sidecar "0.5.4-4"]
                                   [org.clojure/tools.nrepl "0.2.12"]

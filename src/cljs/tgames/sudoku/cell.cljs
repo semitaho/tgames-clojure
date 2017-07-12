@@ -33,5 +33,5 @@
 
 
 (defn cell [index data]
-  [:input{:type "number" :min "1" :max "9" :class (str "flex center browser-default cell" (when (false? (:readonly data) ) " edit") )  :value (:number data)  :on-change #(change-num index (-> % .-target .-value) )    } ]
+  [:input{:type "number" :min "1" :max "9" :readOnly (true? (:readonly data)  )  :class (str "flex center browser-default cell" (when (false? (:readonly data) ) " edit") )  :value (:number data)  :on-change #(change-num index (-> % .-target .-value) )    } ]
 )
